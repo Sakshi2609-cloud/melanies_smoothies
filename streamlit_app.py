@@ -44,20 +44,6 @@ if ingredients_list:
 
 #new code to display fruityvice nutrition information
 import requests
-
-try:
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-    fruityvice_response.raise_for_status()  # Check if the request was successful
-    response_json = fruityvice_response.json()  # Parse JSON response
-    st.text(response_json)  # Display the JSON response
-except requests.exceptions.HTTPError as http_err:
-    st.error(f"HTTP error occurred: {http_err}")
-except requests.exceptions.RequestException as req_err:
-    st.error(f"Request error occurred: {req_err}")
-except ValueError:  # includes JSONDecodeError
-    st.error("Error decoding JSON, response might be empty or malformed")
-except Exception as err:
-    st.error(f"An error occurred: {err}")
-
-        
-        
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+#st.text(fruityvice_response.json())
+fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
